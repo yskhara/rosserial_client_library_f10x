@@ -12,6 +12,15 @@
 
 #include "Timer.h"
 
+class Uart
+{
+public:
+	static constexpr int BaudRate = 57600;
+	static constexpr int TxBufSize = 512;
+	static constexpr int RxBufSize = 256;
+	static UartWithBuffer<USART1_BASE, TxBufSize, RxBufSize> * Uart1;
+};
+
 namespace {
 	void initUSART1(void)
 	{
@@ -48,6 +57,8 @@ namespace {
 
 using SERIAL_CLASS = UartWithBuffer<USART1_BASE, Uart::TxBufSize, Uart::RxBufSize>;
 
+SERIAL_CLASS *Uart::Uart1 = new SERIAL_CLASS(Uart::BaudRate);
+
 //static SERIAL_CLASS * USART1_Wrapper;
 
 extern "C" void USART1_IRQHandler(void)
@@ -74,6 +85,7 @@ class STM32Hardware {
         baud_ = 57600;
 
         __NOP();
+
         com = (SERIAL_CLASS *)Uart::Uart1;
 
         initUSART1();

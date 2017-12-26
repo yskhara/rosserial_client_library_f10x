@@ -8,6 +8,6 @@
 #include "UartWithBuffer.h"
 
 
-SERIAL_CLASS *Uart::Uart1 = new SERIAL_CLASS(Uart::BaudRate);
+//SERIAL_CLASS *Uart::Uart1 = new SERIAL_CLASS(Uart::BaudRate);
 
 
