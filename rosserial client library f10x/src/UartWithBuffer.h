@@ -10,11 +10,13 @@ class UartWithBuffer;
 #include "FIFORingBuffer.h"
 #include "diag/Trace.h"
 
+#define DEFAULT_BAUD_RATE (57600)
+
 template<int USART, int TxBufferSize, int RxBufferSize>
 class UartWithBuffer
 {
 public:
-	UartWithBuffer(int baudRate = 57600)
+	UartWithBuffer(int baudRate = DEFAULT_BAUD_RATE)
 	{
 		this->_usart = reinterpret_cast<USART_TypeDef *>(USART);
 
@@ -140,7 +142,7 @@ private:
 	{
 		USART_InitTypeDef USART_InitStruct;
 		USART_StructInit(&USART_InitStruct);
-		USART_InitStruct.USART_BaudRate = Uart::BaudRate;
+		USART_InitStruct.USART_BaudRate = DEFAULT_BAUD_RATE;
 		USART_InitStruct.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
 		USART_InitStruct.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
 		USART_InitStruct.USART_Parity = USART_Parity_No;
